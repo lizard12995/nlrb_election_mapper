@@ -1,4 +1,5 @@
 
+
 //https://storage.cloud.google.com/musa509-nlrb-election-mapper-raw-data/latest_nlrb.csv
 //gs://musa509-nlrb-election-mapper-raw-data/latest_nlrb.csv
 function initMap() {
@@ -26,7 +27,6 @@ function initMap() {
 
   map.numElectionsLayer = L.geoJSON(null, {
     pointToLayer: (feature, latlng) => L.circleMarker(latlng),
-    //var num_elections = feature.properties['num_elections'],
     style: {
       color: "#50a5d3",
       fillColor: "#b9dbed",
@@ -34,7 +34,7 @@ function initMap() {
     },
   })
     .bindTooltip(layer => {
-    return layer.feature.properties['City'];
+    return layer.feature.properties['num_elections'].toString();
     })
   .addTo(map);
 
@@ -47,7 +47,7 @@ function initMap() {
     },
   })
     .bindTooltip(layer => {
-    return layer.feature.properties['City'];
+    return layer.feature.properties['voter_turnout'].toString();
     })
   .addTo(map);
 
@@ -60,7 +60,7 @@ function initMap() {
     },
   })
     .bindTooltip(layer => {
-    return layer.feature.properties['City'];
+    return layer.feature.properties['tot_wins'].toString();
     })
   .addTo(map);
 
