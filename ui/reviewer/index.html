@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <title>National Labor Review Board Election Mapper</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.2/leaflet.min.css" integrity="sha512-ekzf1ud/EngtmWo8xbIkhtBQsSgkOhTyyD6AA6b/J4/YXTInuNgeKVQDCH/pysNYnrGgsZazWSuWsNtFKzHbmg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="title-container">
+        <h1>National Labor Review Board Election Mapper</h1>
+    </div>
+
+    <div class="under-title">
+        
+        <div class="container" id="left-side">
+            <div class="map-filters">
+                <label class="label-1"><input type="checkbox" class="filter-checkbox" id="num-elections-checkbox" value=1>Number of elections</label>
+                <label class="label-2"><input type="checkbox" class="filter-checkbox" id="voter-turnout-checkbox" value=2>Voter turnout (%)</label>
+                <label class="label-3"><input type="checkbox" class="filter-checkbox" id="union-wins-checkbox" value=3>Union wins (%)</label>
+            </div>
+
+             <div class="map-container" id="map-container">
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.2/leaflet.min.js" integrity="sha512-QPePsP1y4BuymxYZEuQdJ4dsUzZR9MmyrMOLK//zHK4ZoDfMA7zQOJefboRSIm6QKCfzC7djwDOO/+0f72w7Zg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+                <script src="https://unpkg.com/leaflet.vectorgrid@latest/dist/Leaflet.VectorGrid.bundled.js"></script>
+                <script type="module" src="js/main.js"></script>
+              </div>
+        </div>
+    
+
+        <div class="container" id="right-side">
+            <h2 class="stats-title">Statistics</h2>
+            <h3 class="voter-turnout-graph">Voter Turnout</h3>
+            <h3 class="win-rate-graph">Win Rate</h3>
+            <h3 class="count-challenged-graph">Count of Challenged Ballots</h3>
+        </div>
+    </div>
+
+    <!--Widgets
+             <div class="timeline">
+                 Timeline
+             </div>
+             <div class="region-checkbox">
+                 Region
+                 <label><input type="checkbox" id="region-checkbox-4" value=4>4</label>
+                 <label><input type="checkbox" id="region-checkbox-6" value=6>6</label>
+             </div>-->
+
+</body>
+</html>
