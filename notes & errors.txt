@@ -1,0 +1,52 @@
+
+#set credentials on machine:
+export GOOGLE_APPLICATION_CREDENTIALS=/Users/ejs/Geospatial_Cloud/NLRB_Election_Mapper/pipeline/src/extract_nlrb_run/tmp/keys/secrets.json
+
+docker build --tag scraper:1.0 . 
+
+PORT=8080 && docker run \
+-p 9090:${PORT} \
+-e PORT=${PORT} \
+-e K_SERVICE=dev \
+-e K_CONFIGURATION=dev \
+-e K_REVISION=dev-00001 \
+-e GOOGLE_APPLICATION_CREDENTIALS=/app/tmp/keys/secrets.json \
+-v "$GOOGLE_APPLICATION_CREDENTIALS:/app/tmp/keys/secrets.json":ro \
+scraper:1.0
+
+ENDING UP IN THE SAME SPOT:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 2528, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 1825, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 1823, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)
+  File "/app/main.py", line 60, in download_csv
+    file_name = os.listdir(download_dir)[-1]
+IndexError: list index out of range
+
+RUNNING CLOUD FUNCTION:
+python3 -m venv env
+source env/bin/activate
+pip install -r (REVISIT THIS:) requirements.txt
+functions_framework --source=pipeline/src/extract_nlrb/main.py --target download_csv --debug
+gcloud init
+gcloud auth application-default login
+
+
+I have tried:
+- download dir = tmp
+- download dir = .
+- download dir = /app
+
+
+docker image tag <SCRAPER_IMAGE> us.gcr.io/<PROJECT_NAME>/<SCRAPER_IMAGE_NAME>
+docker push us.gcr.io/<PROJECT_NAME>/<SCRAPER_IMAGE_NAME>
+
+gcloud run deploy <SCRAPER_SERVICE_NAME> \
+	--image us.gcr.io/<PROJECT_NAME>/<SCRAPER_IMAGE_NAME>
+    --service-account <SERVICE_INVOKING_ACCOUNT>
+    --memory 1G
