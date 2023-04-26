@@ -15,14 +15,10 @@ RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-# Path to credentials
-ENV GOOGLE_APPLICATION_CREDENTIALS = /Users/ejs/Geospatial_Cloud/NLRB_Election_Mapper/pipeline/src/extract_nlrb_run/keys/musa509-nlrb-election-mapper-e7a7019a0756.json
-
 # Copy local code to the container image.
 ENV APP_HOME /app
 WORKDIR $APP_HOME
 COPY . .
-
 
 # Run the web service on container startup. Here we use the gunicorn
 # webserver, with one worker process and 8 threads.
