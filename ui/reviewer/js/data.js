@@ -15,20 +15,6 @@ function downloadData(onSuccess, onFailure) {
     .then(onSuccess);
   }
 
-//async function downloadData(onSuccess, onFailure) {
-//  const resp = await fetch('data/data.geojson');
-//  if (resp.status === 200) {
-//    const data = await resp.json(); //this is still a promise
-//    if (onSuccess) {
-//      onSuccess(data);
-//    } else {
-//      alert('Oh no, I failed to download the Farmers Markets data.');
-//      if (onFailure) { onFailure() }
-//    }
-//}}
-
-
-
 export{
     downloadData
 }

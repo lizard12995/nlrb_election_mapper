@@ -16,6 +16,7 @@ function initMap() {
   map.dataLayer = L.geoJSON(null, {
     pointToLayer: (feature, latlng) => L.circleMarker(latlng),
     style: {
+
       color: "#6cae75",
       fillColor: "#c4dfc8",
     },
@@ -24,15 +25,26 @@ function initMap() {
     return layer.feature.properties['City'];
     })
   .addTo(map);
-
+  
   map.numElectionsLayer = L.geoJSON(null, {
     pointToLayer: (feature, latlng) => L.circleMarker(latlng),
-    style: {
-      color: "#50a5d3",
-      fillColor: "#b9dbed",
-      radius: 15
-    },
-  })
+    style: (feature) => {
+        var numElections = feature.properties['num_elections'];
+        if (numElections <= 20) {
+            return ({
+                color: "#50a5d3",
+                fillColor: "#b9dbed",
+                radius: numElections
+                });
+          } else {
+            return ({
+                color: "#004e89",
+                fillColor: "#004e89",
+                radius: 30
+                });
+          }
+      }
+    })
     .bindTooltip(layer => {
     return layer.feature.properties['num_elections'].toString();
     })
@@ -40,27 +52,67 @@ function initMap() {
 
   map.voterTurnoutLayer = L.geoJSON(null, {
     pointToLayer: (feature, latlng) => L.circleMarker(latlng),
-    style: {
-      color: "#d8914a",
-      fillColor: "#efd3b7",
-      radius: 15
-    },
+    style:  (feature) => {
+      var percVoters = feature.properties['voter_turnout'];
+      if (percVoters == 0) {
+        return ({
+            color: "#e60000",
+            fillColor: "#e60000",
+            radius: 1
+            });
+      } else if (percVoters <= 75) {
+          return ({
+              color: "#efd3b7",
+              fillColor: "#efd3b7",
+              radius: percVoters/10
+              });
+        } else if (percVoters > 75 & percVoters < 90){
+          return ({
+              color: "#d8914a",
+              fillColor: "#d8914a",
+              radius: percVoters/10
+              });
+        } else {
+          return ({
+            color: "#594d3d",
+            fillColor: "#594d3d",
+            radius: percVoters/10
+            });
+        }
+    }
   })
     .bindTooltip(layer => {
-    return layer.feature.properties['voter_turnout'].toString();
+    return layer.feature.properties['voter_turnout'].toString() + "%";
     })
   .addTo(map);
 
   map.unionWinsLayer = L.geoJSON(null, {
     pointToLayer: (feature, latlng) => L.circleMarker(latlng),
-    style: {
-      color: "#cb9cf2",
-      fillColor: "#ead7fa",
-      radius: 15
-    },
+    style: (feature) => {
+      var percWins = feature.properties['tot_wins'];
+      if (percWins == 0) {
+        return ({
+            color: "#e60000",
+            fillColor: "#e60000",
+            radius: 1
+            });
+      } else if (percWins <= 50) {
+          return ({
+              color: "#cb9cf2",
+              fillColor: "#ead7fa",
+              radius: percWins
+              });
+        } else {
+          return ({
+            color: "#635380",
+            fillColor: "#635380",
+            radius: (percWins/10)*2
+            });
+        }
+    }
   })
     .bindTooltip(layer => {
-    return layer.feature.properties['tot_wins'].toString();
+    return layer.feature.properties['tot_wins'].toString() + "%";
     })
   .addTo(map);
 
