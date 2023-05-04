@@ -51,3 +51,32 @@ body {
     display: flex;
   }
 
+
+  .info-legend.leaflet-control{
+    height: 200px;
+    width: 150px;
+    background-color: #b8b8bd;
+    color: black;
+  }
+
+  .circle {
+    color: yellow;
+    size: 10px;
+    width: 10px;
+    height: 10px;
+  }
+
+
+  .graph {
+    background-color: beige;
+    width:100%;
+    max-width:700px;
+  }
+
+  /* display is good! */
+  .info-legend.leaflet-control i {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    /*transparency: 80%;*/
+  }

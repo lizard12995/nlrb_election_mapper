@@ -1,6 +1,7 @@
 import { downloadData } from './data.js';
 import { initMap} from './map.js';
 import { showCityDataInList } from './election-info.js';
+import { createDataforGraph, createGraphs, testGraph } from './graphs.js';
 
 
 //app is a global variable that stores name the value of the current city
@@ -11,14 +12,17 @@ let app = {
 const map = initMap();
 const checkboxes = document.querySelectorAll('.filter-checkbox');
 
+
 function onDataLoad(data) {
     map.dataLayer.addData(data);
+    createGraphs(createDataforGraph(data,'num_elections','tot_voted'),"myChart1");
     }
 function mapData() {
     downloadData(onDataLoad);
 };
 
 mapData();
+testGraph();
 
 function onNumElectionsDataLoad(data) {
     map.numElectionsLayer.addData(data);
@@ -49,6 +53,7 @@ for (const checkbox of checkboxes){
           if (checkbox.value == 1){
             map.dataLayer.clearLayers();
             mapNumElectionsData();
+            //update legend
           } else  if (checkbox.value == 2){
             map.dataLayer.clearLayers();
             mapVoterTurnoutData();

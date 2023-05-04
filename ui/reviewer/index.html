@@ -18,6 +18,7 @@
         
         <div class="container" id="left-side">
             <div class="map-filters">
+                <!--turn into 4 radio default checked-->
                 <label class="label-1"><input type="checkbox" class="filter-checkbox" id="num-elections-checkbox" value=1>Number of elections</label>
                 <label class="label-2"><input type="checkbox" class="filter-checkbox" id="voter-turnout-checkbox" value=2>Voter turnout (%)</label>
                 <label class="label-3"><input type="checkbox" class="filter-checkbox" id="union-wins-checkbox" value=3>Union wins (%)</label>
@@ -32,26 +33,21 @@
     
 
         <div class="container" id="right-side">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
             <h2 class="stats-title">Statistics</h2>
-            <h3 class="voter-turnout-graph">Voter Turnout</h3>
+            <i class="circle"></i>
+            <h3 class="voter-turnout-graph">Voter Turnout (but test graph atm)</h3>
+            <canvas class="graph" id="testGraph"></canvas>
             <h3 class="win-rate-graph">Win Rate</h3>
+            <canvas class="graph" id="myChart1"></canvas>
             <h3 class="count-challenged-graph">Count of Challenged Ballots</h3>
+            <canvas class="graph" id="myChart2"></canvas>
             <div id="list-container" class="list-container">
                 <h3 class="election-info-title">click on any city for election information</h3>
                 <div id = "data-list" class="selected"></div>
               </div>
         </div>
     </div>
-
-    <!--Widgets
-             <div class="timeline">
-                 Timeline
-             </div>
-             <div class="region-checkbox">
-                 Region
-                 <label><input type="checkbox" id="region-checkbox-4" value=4>4</label>
-                 <label><input type="checkbox" id="region-checkbox-6" value=6>6</label>
-             </div>-->
 
 </body>
 </html>
