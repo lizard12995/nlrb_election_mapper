@@ -1,8 +1,16 @@
 import { downloadData } from './data.js';
 import { initMap} from './map.js';
+import { showCityDataInList } from './election-info.js';
 
 
-const map=initMap();
+//app is a global variable that stores name the value of the current city
+let app = {
+  currentCity: null,
+};
+
+const map = initMap();
+const checkboxes = document.querySelectorAll('.filter-checkbox');
+
 function onDataLoad(data) {
     map.dataLayer.addData(data);
     }
@@ -11,8 +19,6 @@ function mapData() {
 };
 
 mapData();
-
-const checkboxes = document.querySelectorAll('.filter-checkbox');
 
 function onNumElectionsDataLoad(data) {
     map.numElectionsLayer.addData(data);
@@ -40,7 +46,6 @@ function mapUnionWinsData() {
 for (const checkbox of checkboxes){
   checkbox.addEventListener('change', (evt) => {
       if (evt.target.checked){
-          console.log('you clicked on the checkbox ' + checkbox.value);
           if (checkbox.value == 1){
             map.dataLayer.clearLayers();
             mapNumElectionsData();
@@ -52,7 +57,6 @@ for (const checkbox of checkboxes){
             mapUnionWinsData();
           }
       } else {
-          console.log('you unclicked the checkbox ' + checkbox.value);
           if (checkbox.value == 1){
             map.numElectionsLayer.clearLayers();
             mapData();
@@ -67,5 +71,21 @@ for (const checkbox of checkboxes){
   });
 }
 
+// display data of specific city upon click
+function onCityClicked(evt) {
+  const city = evt.layer.feature;
+  app.currentCity = city;
+  showCityDataInList(city, app);
+}
 
+function setupInteractionEvents() {
+  map.dataLayer.addEventListener('click', onCityClicked);
+  map.numElectionsLayer.addEventListener('click', onCityClicked);
+  map.voterTurnoutLayer.addEventListener('click', onCityClicked);
+  map.unionWinsLayer.addEventListener('click', onCityClicked);
+}
+
+setupInteractionEvents();
+
+window.app = app;
 window.mapview = map;

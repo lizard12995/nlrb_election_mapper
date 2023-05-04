@@ -1,5 +1,3 @@
-
-
 //https://storage.cloud.google.com/musa509-nlrb-election-mapper-raw-data/latest_nlrb.csv
 //gs://musa509-nlrb-election-mapper-raw-data/latest_nlrb.csv
 function initMap() {
