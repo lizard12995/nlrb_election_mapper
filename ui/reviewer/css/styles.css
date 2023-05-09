@@ -53,10 +53,12 @@ body {
 
 
   .info-legend.leaflet-control{
-    height: 200px;
+    height: 150px;
     width: 150px;
     background-color: #b8b8bd;
+    opacity: 0.5;
     color: black;
+    
   }
 
   .circle {
@@ -78,5 +80,6 @@ body {
     display: inline-block;
     width: 10px;
     height: 10px;
+    opacity: 1;
     /*transparency: 80%;*/
   }

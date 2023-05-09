@@ -2,7 +2,7 @@ import { downloadData } from './data.js';
 import { initMap} from './map.js';
 import { showCityDataInList } from './election-info.js';
 import { createDataforGraph, createGraphs, testGraph } from './graphs.js';
-import { clearLegend, fillLegend1, fillLegend2, fillLegend3 } from './legend.js';
+import { clearLegend, testLegend, defaultLegend, fillLegend1, fillLegend2, fillLegend3 } from './legend.js';
 
 
 //app is a global variable that stores name the value of the current city
@@ -60,6 +60,8 @@ for (const button of radioButtons){
     map.unionWinsLayer.clearLayers();
       if (button.id == "default-button"){
         mapData();
+        clearLegend(legendEl);
+        defaultLegend(legendEl);
       } else  if (button.id == "num-elections-button"){
         mapNumElectionsData();
         clearLegend(legendEl);
