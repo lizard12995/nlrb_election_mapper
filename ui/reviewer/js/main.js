@@ -2,6 +2,7 @@ import { downloadData } from './data.js';
 import { initMap} from './map.js';
 import { showCityDataInList } from './election-info.js';
 import { createDataforGraph, createGraphs, testGraph } from './graphs.js';
+import { clearLegend, fillLegend1, fillLegend2, fillLegend3 } from './legend.js';
 
 
 //app is a global variable that stores name the value of the current city
@@ -10,69 +11,68 @@ let app = {
 };
 
 const map = initMap();
-const checkboxes = document.querySelectorAll('.filter-checkbox');
+const radioButtons = document.querySelectorAll('.filter-radio-button');
+const legendEl = document.querySelector('.info-legend.leaflet-control');
 
 
 function onDataLoad(data) {
-    map.dataLayer.addData(data);
     createGraphs(createDataforGraph(data,'num_elections','tot_voted'),"myChart1");
     }
-function mapData() {
+function graphData() {
     downloadData(onDataLoad);
-};
+}
 
-mapData();
-testGraph();
+function onMapDataLoad(data) {
+  map.dataLayer.addData(data);
+  }
+function mapData() {
+    downloadData(onMapDataLoad);
+}
 
 function onNumElectionsDataLoad(data) {
     map.numElectionsLayer.addData(data);
     }
 function mapNumElectionsData() {
     downloadData(onNumElectionsDataLoad);
-};
+}
 
 function onVoterTurnoutDataLoad(data) {
     map.voterTurnoutLayer.addData(data);
     }
 function mapVoterTurnoutData() {
     downloadData(onVoterTurnoutDataLoad);
-};
+}
 
 function onUnionWinsDataLoad(data) {
     map.unionWinsLayer.addData(data);
     }
 function mapUnionWinsData() {
     downloadData(onUnionWinsDataLoad);
-};
+}
 
 
 //display parks markers on map when you want
-for (const checkbox of checkboxes){
-  checkbox.addEventListener('change', (evt) => {
-      if (evt.target.checked){
-          if (checkbox.value == 1){
-            map.dataLayer.clearLayers();
-            mapNumElectionsData();
-            //update legend
-          } else  if (checkbox.value == 2){
-            map.dataLayer.clearLayers();
-            mapVoterTurnoutData();
-          } else {
-            map.dataLayer.clearLayers();
-            mapUnionWinsData();
-          }
+for (const button of radioButtons){
+  button.addEventListener('click', (evt) => {
+    map.dataLayer.clearLayers();
+    map.numElectionsLayer.clearLayers();
+    map.voterTurnoutLayer.clearLayers();
+    map.unionWinsLayer.clearLayers();
+      if (button.id == "default-button"){
+        mapData();
+      } else  if (button.id == "num-elections-button"){
+        mapNumElectionsData();
+        clearLegend(legendEl);
+        fillLegend1(legendEl);
+      } else if (button.id== "voter-turnout-button"){
+        mapVoterTurnoutData();
+        clearLegend(legendEl);
+        fillLegend2(legendEl);
       } else {
-          if (checkbox.value == 1){
-            map.numElectionsLayer.clearLayers();
-            mapData();
-          } else  if (checkbox.value == 2){
-            map.voterTurnoutLayer.clearLayers();
-            mapData();
-          } else {
-            map.unionWinsLayer.clearLayers();
-            mapData();
-          }
-      }
+        mapUnionWinsData();
+        clearLegend(legendEl);
+        fillLegend3(legendEl);
+    }
   });
 }
 
@@ -90,7 +90,11 @@ function setupInteractionEvents() {
   map.unionWinsLayer.addEventListener('click', onCityClicked);
 }
 
+mapData();
+graphData();
 setupInteractionEvents();
+testGraph();
 
 window.app = app;
 window.mapview = map;
+

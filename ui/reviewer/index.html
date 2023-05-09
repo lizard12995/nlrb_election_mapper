@@ -19,9 +19,10 @@
         <div class="container" id="left-side">
             <div class="map-filters">
                 <!--turn into 4 radio default checked-->
-                <label class="label-1"><input type="checkbox" class="filter-checkbox" id="num-elections-checkbox" value=1>Number of elections</label>
-                <label class="label-2"><input type="checkbox" class="filter-checkbox" id="voter-turnout-checkbox" value=2>Voter turnout (%)</label>
-                <label class="label-3"><input type="checkbox" class="filter-checkbox" id="union-wins-checkbox" value=3>Union wins (%)</label>
+                <label class="label-1"><input type="radio" name="map-filter" class="filter-radio-button" id="default-button" checked>Cities with union elections</label>
+                <label class="label-2"><input type="radio" name="map-filter" class="filter-radio-button" id="num-elections-button" >Number of elections</label>
+                <label class="label-3"><input type="radio" name="map-filter" class="filter-radio-button" id="voter-turnout-button" >Voter turnout (%)</label>
+                <label class="label-4"><input type="radio" name="map-filter" class="filter-radio-button" id="union-wins-button" >Union wins (%)</label>
             </div>
 
              <div class="map-container" id="map-container">

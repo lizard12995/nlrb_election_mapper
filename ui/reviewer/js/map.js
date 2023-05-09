@@ -14,9 +14,10 @@ function initMap() {
   map.dataLayer = L.geoJSON(null, {
     pointToLayer: (feature, latlng) => L.circleMarker(latlng),
     style: {
-
       color: "#6cae75",
       fillColor: "#c4dfc8",
+      radius: 5,
+      weight: 1.5,
     },
   })
     .bindTooltip(layer => {
@@ -28,17 +29,26 @@ function initMap() {
     pointToLayer: (feature, latlng) => L.circleMarker(latlng),
     style: (feature) => {
         var numElections = feature.properties['num_elections'];
-        if (numElections <= 20) {
+        if (numElections <= 2) {
             return ({
-                color: "#50a5d3",
-                fillColor: "#b9dbed",
-                radius: numElections
+                color: "#004e89",
+                fillColor: "#50a5d3",
+                radius: 5,
+                weight: 1.5,
                 });
+          } else if (numElections <= 4) {
+            return ({
+              color: "#004e89",
+              fillColor: "#50a5d3",
+              radius: 10,
+              weight: 1.5,
+              });
           } else {
             return ({
                 color: "#004e89",
-                fillColor: "#004e89",
-                radius: 30
+                fillColor: "#50a5d3",
+                radius: 15,
+                weight: 1.5,
                 });
           }
       }
@@ -56,25 +66,29 @@ function initMap() {
         return ({
             color: "#e60000",
             fillColor: "#e60000",
-            radius: 1
+            radius: 1,
+            weight: 1.5,
             });
-      } else if (percVoters <= 75) {
+      } else if (percVoters <= 83) {
           return ({
               color: "#efd3b7",
               fillColor: "#efd3b7",
-              radius: percVoters/10
+              radius: 5,
+              weight: 1.5,
               });
-        } else if (percVoters > 75 & percVoters < 90){
+        } else if (percVoters < 93){
           return ({
               color: "#d8914a",
               fillColor: "#d8914a",
-              radius: percVoters/10
+              radius: 5,
+              weight: 1.5,
               });
         } else {
           return ({
             color: "#594d3d",
             fillColor: "#594d3d",
-            radius: percVoters/10
+            radius: 5,
+            weight: 1.5,
             });
         }
     }
@@ -92,19 +106,29 @@ function initMap() {
         return ({
             color: "#e60000",
             fillColor: "#e60000",
-            radius: 1
+            radius: 1,
+            weight: 1.5,
             });
-      } else if (percWins <= 50) {
+      } else if (percWins <= 2) {
           return ({
               color: "#cb9cf2",
               fillColor: "#ead7fa",
-              radius: percWins
+              radius: 5,
+              weight: 1.5,
+              });
+        } else if (percWins <= 50) {
+          return ({
+              color: "#745F93",
+              fillColor: "#A884CC",
+              radius: 5,
+              weight: 1.5,
               });
         } else {
           return ({
-            color: "#635380",
+            color: "#211C2B",
             fillColor: "#635380",
-            radius: (percWins/10)*2
+            radius: 5,
+            weight: 1.5,
             });
         }
     }
@@ -114,35 +138,32 @@ function initMap() {
     })
   .addTo(map);
 
-  //legend part
-  //chat gpt code that did not work sad
-
   var legend = L.control({position: 'bottomright'});
 
   legend.onAdd = () => {
     var div = L.DomUtil.create('div', 'info-legend');
-    var grades = [0, 10, 20, 50, 100, 200, 500, 1000];
-    var labels = [];
-
-    function getColor(d) {
-      return d > 1000 ? '#800026' :
-             d > 500  ? '#BD0026' :
-             d > 200  ? '#E31A1C' :
-             d > 100  ? '#FC4E2A' :
-             d > 50   ? '#FD8D3C' :
-             d > 20   ? '#FEB24C' :
-             d > 10   ? '#FED976' :
-                        '#FFEDA0';
-  }
-
-    // loop through our density intervals and generate a label with a colored square for each interval
-    for (var i = 0; i < grades.length; i++) {
-      //this could be the argument to feed in to replace legend
-      //or keep track of legend of with .remove()
-        div.innerHTML +=
-            '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
-            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
-    }
+  //  var grades = [0, 10, 20, 50, 100, 200, 500, 1000];
+  //  var labels = [];
+//
+  //  function getColor(d) {
+  //    return d > 1000 ? '#800026' :
+  //           d > 500  ? '#BD0026' :
+  //           d > 200  ? '#E31A1C' :
+  //           d > 100  ? '#FC4E2A' :
+  //           d > 50   ? '#FD8D3C' :
+  //           d > 20   ? '#FEB24C' :
+  //           d > 10   ? '#FED976' :
+  //                      '#FFEDA0';
+  //}
+//
+  //  // loop through our density intervals and generate a label with a colored square for each interval
+  //  for (var i = 0; i < grades.length; i++) {
+  //    //this could be the argument to feed in to replace legend
+  //    //or keep track of legend of with .remove()
+  //      div.innerHTML +=
+  //          '<i style="background:' + getColor(grades[i] + 1) + '"></i> ' +
+  //          grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+  //  }
     return div;
     };
     legend.addTo(map);
