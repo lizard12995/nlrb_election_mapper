@@ -1,14 +1,16 @@
 //would be cool if in the future we get the breakpoints to be calculated and updated as the data is updated
-const colors_num_elections = ["#004e89", "#004e89", "#004e89"];
-const fill_num_elections = ["#50a5d3", "#50a5d3", "#50a5d3"];
+
+const size_num_elections = ['10px', '15px', '20px'];
 const labels_num_elections = ["1-2 elections", "3-4 elections", "5-100 elections"];
 
+const size_perc = ['10px', '10px', '10px', '1px']
+
 const colors_voter_turnout = ["#efd3b7", "#d8914a", "#594d3d", "#e60000"];
-//fill colors the same
-const labels_voter_turnout = ["1-83% turnout", "84-92% turnout", "93-100% turnout", "no voters"];
+const fill_voter_turnout = ['rgba(239, 211, 183,0.3)', 'rgba(216, 145, 74,0.3)', 'rgba(89, 77, 61,0.3)', "#e60000"];
+const labels_voter_turnout = ["1-83% turnout", "84-92% turnout", "93-100% turnout", "no turnout"];
 
 const colors_union_wins = ["#cb9cf2", "#745F93", "#211C2B", "#e60000"];
-const fill_union_wins = [ "#ead7fa","#A884CC", "#635380", "#e60000"];
+const fill_union_wins = [ 'rgba(234, 215, 250,0.3)', 'rgba(168, 132, 204,0.3)', 'rgba(99, 83, 128,0.3)', "#e60000"];
 const labels_union_wins = ["1-25% won", "26-50% won", "51-100% won","no wins"];
 
 function clearLegend(div){
@@ -45,37 +47,38 @@ function testLegend(div){
 };
 
 function defaultLegend(div){
-    div.innerHTML = '<h3>Legend</h3> <i style="background: #6cae75"></i> ' +
+    div.innerHTML = '<h3>Cities with union elections</h3> <i style="background: rgba(196, 223, 200,0.3); border: 2px solid #6cae75; width: 10px; height: 10px"></i> ' +
             ("City" + '<br>');
     return div;
 };
 
 function fillLegend1(div){
-    div.innerHTML = '<h3>Legend</h3>'
-    for (var i = 0; i < colors_num_elections.length; i++) {
+    div.innerHTML = '<h3>Number of union elections per city</h3>'
+    for (var i = 0; i < size_num_elections.length; i++) {
         div.innerHTML +=
-            '<i style="background:' + colors_num_elections[i]+ '"></i> ' +
+            '<span style="width:' + size_num_elections[i]+ '; height: '+size_num_elections[i] +'"></span> ' +
             (labels_num_elections[i] + '<br>');
     }
     return div;
 };
 
 function fillLegend2(div){
-    div.innerHTML = '<h3>Legend</h3>'
+    div.innerHTML = '<h3>Percent voter turnout per city</h3>'
     for (var i = 0; i < colors_voter_turnout.length; i++) {
         div.innerHTML +=
-            '<i style="background:' + colors_voter_turnout[i]+ '"></i> ' +
+            '<i style="background:' + fill_voter_turnout[i]+ '; border: 2px solid'+ colors_voter_turnout[i] + ';width:' + size_perc[i]+ '; height: '+size_perc[i] +'"></i> ' +
             (labels_voter_turnout[i] + '<br>');
     }
     return div;
 };
 
 function fillLegend3(div){
-    div.innerHTML = '<h3>Legend</h3>'
+    div.innerHTML = '<h3>Percent union election wins per city</h3>'
     for (var i = 0; i < colors_union_wins.length; i++) {
         div.innerHTML +=
             //'<i style="background:' + colors_union_wins[i] + labels_union_wins[i]+ '"></i> ';
-            '<i style="background:' + colors_union_wins[i] +  '"></i> '+(labels_union_wins[i]+'<br>');
+            '<i style="background:' + fill_union_wins[i]+ '; border: 2px solid'+ colors_union_wins[i] + ';width:' + size_perc[i]+ '; height: '+size_perc[i] +'"></i> '
+            +(labels_union_wins[i]+'<br>');
     }
     return div;
 };

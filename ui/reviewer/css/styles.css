@@ -1,5 +1,5 @@
 body {
-  background-color: #b8b8bd;
+  background-color: #E7E7E9;
 }
 
 .title-container {
@@ -53,11 +53,11 @@ body {
 
 
   .info-legend.leaflet-control{
-    height: 150px;
+    height: 190px;
     width: 150px;
-    background-color: #b8b8bd;
-    opacity: 0.5;
-    color: black;
+    background-color: rgba(231, 231, 233,0.5); /*#e7e7e9*/
+    /*opacity: 0.5;*/
+    color: #395b50;
     
   }
 
@@ -78,8 +78,14 @@ body {
   /* display is good! */
   .info-legend.leaflet-control i {
     display: inline-block;
-    width: 10px;
-    height: 10px;
-    opacity: 1;
-    /*transparency: 80%;*/
+    margin-left: 10px;
+    border-radius: 50%;
+  }
+
+  .info-legend.leaflet-control span {
+    display: inline-block;
+    background-color: rgba(80, 165, 211,0.3);
+    border: 2px solid #004e89;
+    border-radius: 50%;
+    margin-left: 10px;
   }

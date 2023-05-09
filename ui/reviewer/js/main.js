@@ -93,6 +93,7 @@ function setupInteractionEvents() {
 }
 
 mapData();
+defaultLegend(legendEl);
 graphData();
 setupInteractionEvents();
 testGraph();
