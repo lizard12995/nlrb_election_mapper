@@ -1,0 +1,5 @@
+gcloud functions deploy prepare_data 
+--runtime python310 
+--trigger-http 
+--allow-unauthenticated 
+--source gs://musa509-nlrb-election-mapper-processed-data/testfile.zip
